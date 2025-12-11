@@ -9,7 +9,7 @@ pipeline {
                 }
             }
         }
-        stage("build)" {
+        stage("build") {
             when {
                 expression {
                     BRANCH_NAME == "master"
