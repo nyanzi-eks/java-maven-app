@@ -1,7 +1,7 @@
 #!/usr/bin/env groovy
 library identifier: 'jenkins-shared-library@master', retriever: modernSCM(
         [$class: 'GitSCMSource',
-        remote: 'https://gitlab.com/nyanzi-group/java-maven-app.git',
+        remote: 'https://gitlab.com/nyanzi-group/jenkins-shared-library.git',
         credentialsId: 'gitlab-credentials'])
 
 
