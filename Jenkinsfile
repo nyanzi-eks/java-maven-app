@@ -34,7 +34,7 @@ pipeline {
                     echo "building the docker image..."
                     withCredentials([usernamePassword(credentialsId: 'docker-credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]){
                         sh "docker build -t atimnyanzi897/demo-app:${IMAGE_NAME} ."
-                        sh 'echo $PASS | docker login -u $USER --password-stdin ${DOCKER_REPO_SERVER}'
+                        sh 'echo $PASS | docker login -u $USER --password-stdin'
                         sh "docker push atimnyanzi897/demo-app:${IMAGE_NAME}"
                     }
                 }
