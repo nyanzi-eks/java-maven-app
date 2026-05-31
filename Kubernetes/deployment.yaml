@@ -19,6 +19,6 @@ spec:
       containers:
       - name: $APP_NAME
         image: atimnyanzi897/demo-app:$IMAGE_NAME
-        imgaePullPolicy: Always
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
