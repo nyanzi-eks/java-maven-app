@@ -24,10 +24,10 @@ pipeline {
                 }
             }
         }
-        stage('build app') {
+        stage('clean up') {
             steps {
                 script {
-                    echo 'building the application...'
+                    echo 'cleaning previous artifacts...'
                     sh 'mvn clean package'
                 }
             }
@@ -61,8 +61,12 @@ pipeline {
         stage('commit version update'){
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'gitlab-token', passwordVariable: 'TOKEN', usernameVariable: 'USER')]){
-                        sh "git remote set-url origin https://${USER}:${TOKEN}@gitlab.com/nyanzi-group/11-eks/java-maven-app.git"
+                    withCredentials([usernamePassword(
+                        credentialsId: 'github-token', 
+                        passwordVariable: 'TOKEN', 
+                        usernameVariable: 'USER'
+                        )]){
+                        sh "git remote set-url origin https://${USER}:${TOKEN}@github.com/nyanzi-eks/java-maven-app.git"
                         sh 'git add .'
                         sh 'git commit -m "ci: version bump"'
                         sh 'git push origin HEAD:jenkins-jobs'
