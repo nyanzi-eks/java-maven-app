@@ -51,24 +51,14 @@ flowchart TD
 The server should also have `envsubst` tool installed. This tool passes the environment variable values from the Jenkins file to the deployment and service files
 * EKS cluster
 
----
-
-## 🚀 Setup & Deployment Guide
-
-
-### Phase 2: Jenkins Server Configuration
-Jenkins is set up to interact with AWS and EKS:
-* Install kubectl command line tool inside Jenkins container
-
----
 
 ## ⚙️ Adjust Jenkins Pipeline Structure (`Jenkinsfile`) for EKS Cluster Deployment
 
-Explain the breakdown of your pipeline stages:
+Jenkins is set up to interact with AWS and EKS. Below is the breakdown of your pipeline stages:
 
 * **Stage 1: Increment Version** – Pulls latest code and runs linting/tests.
 * **Stage 2: Clean Up** – Cleans previous artifacts.
-* **Stage 3: Build Image** – Builds image. Authenticates with AWS ECR and pushes the image.
+* **Stage 3: Build Image** – Builds image. Authenticates with DockerHub and pushes the image.
 * **Stage 4: Deploy to EKS** – Executes `kubectl apply` on the deployment and service files.
 * **Stage 5: Commit Version Update** – Commit and push changes to the repository.
 
@@ -108,7 +98,8 @@ The pipeline becomes unresponsive because during builds Maven, Java compilation,
 * eventually the JVM (Java Virtual Machine)struggles to execute scheduled work and crashes or is OOM-killed
 * Docker restart policy restarts the container
 
-Where as a 1 GB server is sufficient for small learning projects, it is usually too small for Java + Docker workloads
+Whereas a 1 GB server is sufficient for small learning projects, it is usually too small or Java + Docker workloads
+
 ---
 
 ### ✅ The Solution: Server Upgrade
