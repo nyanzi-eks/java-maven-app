@@ -37,7 +37,7 @@ flowchart TD
 
 ## 🛠️ Tech Stack
 
-* **Cloud Provider:** AWS (EKS, ECR, IAM, VPC), Digital Ocean (Jenkins)
+* **Cloud Provider:** AWS (EKS, IAM, VPC), Digital Ocean (Jenkins)
 * **CI/CD Orchestration:** Jenkins
 * **Containerization & Orchestration:** Docker, Kubernetes
 
