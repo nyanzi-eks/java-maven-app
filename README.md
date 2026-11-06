@@ -51,6 +51,7 @@ flowchart TD
 The server should also have `envsubst` tool installed. This tool passes the environment variable values from the Jenkins file to the deployment and service files
 * EKS cluster
 
+---
 
 ## ⚙️ Adjust Jenkins Pipeline Structure (`Jenkinsfile`) for EKS Cluster Deployment
 
@@ -63,7 +64,28 @@ Jenkins is set up to interact with AWS and EKS. Below is the breakdown of your p
 * **Stage 5: Commit Version Update** – Commit and push changes to the repository.
 
 ---
+## 🏁 Create Secret for DockerHub Credentials
+When a `kubectl apply` is done on the deployment file, it pulls the image from the Docker private registry and kubernetes must hence be authorised to fetch that image. DockerHub being secure, we need authentication with the registry from inside the kubernetes cluster. So the Docker credentials we use in the build stage must also be available inside the kubernetes cluster. This is done by creating a secret of `docker-registry` type. This task is a one-time event and hence need not be put in the pipeline. The secret is created once - one per namespace as follows:
 
+```bash
+kubectl create secret docker-registry my-registry-key \
+--docker-server=docker.io \
+--docker-username=<your-username> \
+--docker-password=<your-password>
+```
+Verify the secret has been created by running the following command: 
+
+```bash
+kubectl get secret
+```
+Reference has to be made this secret inside the specification of the pod in the deployment file. The `imagePullSecretes` attribute is defined as shown below:
+
+```yaml
+spec:
+  imagePullSecrets:
+  - name: my-registry-key
+
+```
 ## 🔍 Verification & Testing
 
 * Commands to review created EKS cluster (`kubectl get nodes`)
